@@ -15,8 +15,9 @@ Route::get('/', function () {
 
     $reviews = \App\Reviews::all();
     $articles = \App\Articles::where('active', 1)->get();
+    $coords = \App\Сoordinates::all();
 
-    return view('index', compact('reviews', 'articles'));
+    return view('index', compact('reviews', 'articles', 'coords'));
 
 
 });

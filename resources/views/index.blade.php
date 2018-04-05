@@ -888,18 +888,20 @@
 
                         map = new google.maps.Map(googleMap, mapOptions);
 
-                        for (let i = 0; i < coords.length; i++) {
+//                        for (let i = 0; i < coords.length; i++) {
                             // construct single location coords
-                            var myLatlng = new google.maps.LatLng(coords[i].lat, coords[i].lng),
+
+                        @foreach ($coords as $coord)
+                            var myLatlng = new google.maps.LatLng({{$coord['lat']}}, {{$coord['lng']}}),
                                 infowindow = new google.maps.InfoWindow({
-                                    content: coords[i].title
+                                    content: "{{$coord['title']}}"
                                 });
                             // construct single marker
                             marker = new google.maps.Marker({
                                 position: myLatlng,
                                 map: map,
                                 icon: iconBase + iconMarker,
-                                title: coords[i].title
+                                title: "{{$coord['title']}}"
                             });
                             // create list of locations with markers
                             markers.push(marker);
@@ -907,8 +909,8 @@
                             map.addListener('click', function () {
                                 infowindow.close()
                             });
-
-                        }
+                        @endforeach
+//                        }
 
                         map_btns.forEach(function (item, i) {
                             // remove attr target from map links
